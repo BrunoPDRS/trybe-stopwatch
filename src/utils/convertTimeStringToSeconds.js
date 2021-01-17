@@ -1,9 +1,8 @@
 const convertTimeStringToSeconds = (display) => {
-  const [hours, minutes, seconds] = display.split(':');
-  const hoursToSeconds = parseInt(hours) * 3600;
+  const [minutes, seconds] = display.split(':');
   const minutesToSeconds = parseInt(minutes) * 60;
   
-  const timeInSeconds = hoursToSeconds + minutesToSeconds + parseInt(seconds);
+  const timeInSeconds = minutesToSeconds + parseInt(seconds);
 
   return timeInSeconds;
 }

@@ -1,7 +1,7 @@
 const addNumberToTimeString = (numbers) => {
-  const maxDigits = 6;
+  const maxDigits = 4;
 
-  if (numbers.length > maxDigits) return '99:59:59';
+  if (numbers.length > maxDigits) return '99:59';
 
   const currentArray = [...numbers];
   const sizeDifference = maxDigits - currentArray.length;
@@ -14,8 +14,8 @@ const addNumberToTimeString = (numbers) => {
   const timeStamp = currentArray.join('');
 
   return timeStamp.replace(
-    /(\d{2})(\d{2})(\d{2})/,
-    "$1:$2:$3"
+    /(\d{2})(\d{2})/,
+    "$1:$2"
   );
 }
 

@@ -9,9 +9,11 @@ const Timer = () => {
   const [isActive, setIsActive] = useState(false);
   const [timeoutID, setTimeoutID] = useState(null);
   const [inputNumbers, setInputNumbers] = useState([]);
-  const [display, setDisplay] = useState('00:00:00');
+  const [display, setDisplay] = useState('00:00');
 
   useEffect(() => {
+    setDisplay(convertSecondsToTimeString(timer));
+
     if (isActive && timer > 0) {
       const timeout = setTimeout(() => {
         setTimer(timer - 1);
@@ -22,23 +24,20 @@ const Timer = () => {
       setIsActive(false);
     }
 
-    setDisplay(convertSecondsToTimeString(timer));
-
   }, [
       timer,
       isActive,
-      display
     ]
   );
 
   const handleStart = useCallback(() => {
-    setTimer(convertTimeStringToSeconds(display));
+    const startingTime = convertTimeStringToSeconds(display);
+    setTimer(startingTime);
 
-    if (timer > 0) {
-      setTimer(timer - 1);
+    if (startingTime > 0) {
       setIsActive(true);
     }
-  }, [timer, display]);
+  }, [display]);
 
   const handlePause = useCallback(() => {
     setIsActive(false);
@@ -48,17 +47,16 @@ const Timer = () => {
   const handleReset = useCallback(() => {
     handlePause();
     setTimer(0);
-    setDisplay('00:00:00');
+    setDisplay('00:00');
     setInputNumbers([]);
   }, [handlePause]);
 
   const handleAddToTimer = useCallback((event) => {
     const newNumber = event.target.innerText;
-    const currentInputNumbers = [...inputNumbers];
 
     if (newNumber === "0" && !inputNumbers.length) return;
 
-    setDisplay(addNumberToTimeString([...currentInputNumbers, newNumber]));
+    setDisplay(addNumberToTimeString([...inputNumbers, newNumber]));
     setInputNumbers([...inputNumbers, newNumber]);
 
   }, [inputNumbers]);
