@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
+import convertSecondsToTimeString from '../../utils/convertSecondsToTimeString';
+import convertTimeStringToSeconds from '../../utils/convertTimeStringToSeconds';
+import addNumberToTimeString from '../../utils/addNumberToTimeString';
+
 const Timer = () => {
   const [timer, setTimer] = useState(10);
   const [isActive, setIsActive] = useState(false);
   const [timeoutID, setTimeoutID] = useState(null);
-
-  const hours = Math.floor(timer/3600);
-  const minutes = Math.floor(timer/60) - (hours * 60);
-  const seconds = timer - (minutes * 60) - (hours * 3600);
+  const [inputNumbers, setInputNumbers] = useState([]);
+  const [display, setDisplay] = useState('00:00:00');
 
   useEffect(() => {
     if (isActive && timer > 0) {
@@ -19,27 +21,66 @@ const Timer = () => {
     } else {
       setIsActive(false);
     }
-  }, [timer, isActive]);
+
+    setDisplay(convertSecondsToTimeString(timer));
+
+  }, [
+      timer,
+      isActive,
+      display
+    ]
+  );
 
   const handleStart = useCallback(() => {
-    setTimer(timer - 1);
-    setIsActive(true);
-  }, [timer]);
+    setTimer(convertTimeStringToSeconds(display));
+
+    if (timer > 0) {
+      setTimer(timer - 1);
+      setIsActive(true);
+    }
+  }, [timer, display]);
 
   const handlePause = useCallback(() => {
     setIsActive(false);
     clearTimeout(timeoutID);
   }, [timeoutID]);
 
+  const handleReset = useCallback(() => {
+    handlePause();
+    setTimer(0);
+    setDisplay('00:00:00');
+    setInputNumbers([]);
+  }, [handlePause]);
+
+  const handleAddToTimer = useCallback((event) => {
+    const newNumber = event.target.innerText;
+    const currentInputNumbers = [...inputNumbers];
+
+    if (newNumber === "0" && !inputNumbers.length) return;
+
+    setDisplay(addNumberToTimeString([...currentInputNumbers, newNumber]));
+    setInputNumbers([...inputNumbers, newNumber]);
+
+  }, [inputNumbers]);
+
   return (
     <>
       <h1>
-        <span>{hours.toString().padStart(2, 0)}:</span>
-        <span>{minutes.toString().padStart(2, 0)}:</span>
-        <span>{seconds.toString().padStart(2, 0)}</span>
+        {display}
       </h1>
       <button onClick={handleStart}>Start</button>
       <button onClick={handlePause}>Pause</button>
+      <button onClick={handleReset}>Reset</button>
+      <button onClick={handleAddToTimer}>0</button>
+      <button onClick={handleAddToTimer}>1</button>
+      <button onClick={handleAddToTimer}>2</button>
+      <button onClick={handleAddToTimer}>3</button>
+      <button onClick={handleAddToTimer}>4</button>
+      <button onClick={handleAddToTimer}>5</button>
+      <button onClick={handleAddToTimer}>6</button>
+      <button onClick={handleAddToTimer}>7</button>
+      <button onClick={handleAddToTimer}>8</button>
+      <button onClick={handleAddToTimer}>9</button>
     </>
   )
 };
