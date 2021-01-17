@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import backgroundImg from '../assets/space-background.svg';
 
 export default createGlobalStyle`
-  * {
+  *, body {
     padding: 0;
     margin: 0;
     outline: 0;
@@ -26,6 +26,14 @@ export default createGlobalStyle`
     background-image: url(${backgroundImg});
     background-size: cover;
     background-repeat: no-repeat;
+  }
+
+  main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
   }
 
   h1 {

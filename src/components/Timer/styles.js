@@ -10,6 +10,10 @@ export const Container = styled.div`
   padding: 10px;
   width: 86%;
   z-index: 5;
+  
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const Panel = styled.div`
@@ -20,6 +24,10 @@ export const Panel = styled.div`
   background-image: url(${panelImg});
   background-size: contain;
   background-repeat: no-repeat;
+  width: 410px;
+  margin: 0 15px;
+  min-width: 368px;
+  min-height: 417px;
 
   > div {
     min-height: 353px;
@@ -34,12 +42,6 @@ export const Panel = styled.div`
     div {
       display: flex;
     }
-  }
-
-  @media screen and (min-width: 776px) {
-    margin: 0 15px;
-    min-width: 368px;
-    min-height: 417px;
   }
 `;
 
@@ -58,7 +60,7 @@ export const Screen = styled.div`
 
   h1 {
     color: #00c000;
-    font-size: 7rem;
+    font-size: 8rem;
     font-weight: 800;
     left: 50%;
     position: absolute;

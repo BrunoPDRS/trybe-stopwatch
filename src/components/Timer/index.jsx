@@ -30,10 +30,10 @@ const Timer = () => {
       }, 1000);
 
       setTimeoutID(timeout);
-    } else {
+    } else if (isActive) {
       setIsActive(false);
+      setDisplay('Voltamos!');
     }
-
   }, [
       timer,
       isActive,
@@ -50,10 +50,12 @@ const Timer = () => {
   }, [display]);
 
   const handlePause = useCallback(() => {
+    setInputNumbers([]);
     setIsActive(false);
     clearTimeout(timeoutID);
   }, [timeoutID]);
 
+  
   const handleReset = useCallback(() => {
     handlePause();
     setTimer(0);
@@ -79,13 +81,21 @@ const Timer = () => {
             <h1>{display}</h1>
           </Screen>
           <ButtonsContainer>
-            <Button isDisabled={isActive || (!hasTime && !isActive)} onClick={handleStart}>
+            <Button
+              isDisabled={isActive || (!hasTime && !isActive)} 
+              onClick={handleStart}
+              isControl={true}
+            >
               <BsPlayFill size={40} />
             </Button>
-            <Button isDisabled={!isActive} onClick={handlePause}>
+            <Button
+              isDisabled={!isActive}
+              onClick={handlePause}
+              isControl={true}
+            >
               <BsPauseFill size={40} />
             </Button>
-            <Button onClick={handleReset}>
+            <Button onClick={handleReset} isControl={true}>
               <BsSquareFill />
             </Button>
           </ButtonsContainer>
