@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import panelImg from '../../assets/panel.svg';
 
@@ -46,13 +46,16 @@ export const Panel = styled.div`
 `;
 
 export const Screen = styled.div`
+  align-items: center;
   background: black;
   border-radius: 1px;
   box-shadow: 
     0px 0px 0px 4px rgba(57, 57, 57, 1),
     0px 0px 0px 9px rgba(197, 197, 197, 1);
+  display: flex;
   flex: 1;
   height: 100%;
+  justify-content: center;
   margin: 25px 0;
   padding: 5px;
   position: relative;
@@ -62,11 +65,14 @@ export const Screen = styled.div`
     color: #00c000;
     font-size: 8rem;
     font-weight: 800;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
+
+    ${({ children }) => 
+      !(/^\d{2}:\d{2}$/
+        .test(children.props.children)) &&
+        css`
+          font-size: 4rem;
+        `
+    }
   }
 `;
 

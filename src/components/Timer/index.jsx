@@ -14,15 +14,17 @@ import { ButtonsContainer, Container, Panel, Screen } from './styles';
 const Timer = () => {
   const [timer, setTimer] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [isOver, setIsOver] = useState(false);
   const [timeoutID, setTimeoutID] = useState(null);
   const [inputNumbers, setInputNumbers] = useState([]);
   const [display, setDisplay] = useState('00:00');
 
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const hasTime = display !== '00:00';
+  const isBackMsg = display === 'Voltamos!!!';
 
   useEffect(() => {
-    setDisplay(convertSecondsToTimeString(timer));
+    !isOver && setDisplay(convertSecondsToTimeString(timer));
 
     if (isActive && timer > 0) {
       const timeout = setTimeout(() => {
@@ -32,11 +34,19 @@ const Timer = () => {
       setTimeoutID(timeout);
     } else if (isActive) {
       setIsActive(false);
-      setDisplay('Voltamos!');
+      setIsOver(true);
+    } else if (isOver) {
+      setInputNumbers([]);
+      setDisplay('Voltamos!!!');
     }
+
+    isBackMsg && alert('O intervalo acabou!!!');
+  
   }, [
       timer,
       isActive,
+      isOver,
+      isBackMsg
     ]
   );
 
@@ -58,6 +68,7 @@ const Timer = () => {
   
   const handleReset = useCallback(() => {
     handlePause();
+    setIsOver(false);
     setTimer(0);
     setDisplay('00:00');
     setInputNumbers([]);
@@ -82,7 +93,7 @@ const Timer = () => {
           </Screen>
           <ButtonsContainer>
             <Button
-              isDisabled={isActive || (!hasTime && !isActive)} 
+              isDisabled={isActive || (!hasTime && !isActive) || isOver} 
               onClick={handleStart}
               isControl={true}
             >
@@ -104,7 +115,7 @@ const Timer = () => {
       <Panel>
         <div>
           <Buttons
-            isDisabled={isActive}
+            isDisabled={isActive || isOver}
             onClick={handleAddToTimer}
             buttonsContent={numbers}
           />
