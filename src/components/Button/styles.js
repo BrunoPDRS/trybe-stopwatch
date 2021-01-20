@@ -5,7 +5,7 @@ export const ButtonContainer = styled.button`
   border: inset 4px #505050;
   border-radius: 4px;
   box-shadow: 0 0 0 4px #0a0a0a, 4px 4px 16px black;
-  color: #FFF;
+  color: #FAFAFA;
   cursor: pointer;
   font-size: 4rem;
   font-weight: bold;
