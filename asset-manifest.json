@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/trybe-stopwatch/static/js/main.642c058b.chunk.js",
-    "main.js.map": "/trybe-stopwatch/static/js/main.642c058b.chunk.js.map",
+    "main.js": "/trybe-stopwatch/static/js/main.48e8d22e.chunk.js",
+    "main.js.map": "/trybe-stopwatch/static/js/main.48e8d22e.chunk.js.map",
     "runtime-main.js": "/trybe-stopwatch/static/js/runtime-main.b034eb3b.js",
     "runtime-main.js.map": "/trybe-stopwatch/static/js/runtime-main.b034eb3b.js.map",
     "static/js/2.588d37f0.chunk.js": "/trybe-stopwatch/static/js/2.588d37f0.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.b034eb3b.js",
     "static/js/2.588d37f0.chunk.js",
-    "static/js/main.642c058b.chunk.js"
+    "static/js/main.48e8d22e.chunk.js"
   ]
 }
