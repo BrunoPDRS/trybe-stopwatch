@@ -40,8 +40,8 @@ const Timer = () => {
       setDisplay('Voltamos!!!');
     }
 
-    isBackMsg && alert('O intervalo acabou!!!');
-  
+    isBackMsg && setTimeout(() => alert('O intervalo acabou!'), 500);
+
   }, [
       timer,
       isActive,
